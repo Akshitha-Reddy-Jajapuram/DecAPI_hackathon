@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TriageZero AI — Batch Processing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">✧</div><div><strong>TriageZero AI</strong><small>Emergency Response Intelligence</small></div></div>
+      <nav>
+        <a href="#"><span>▦</span>Dashboard</a><a href="#"><span>⌖</span>Incident Map</a><a class="active" href="#"><span>▤</span>Batch Processing</a><a href="#"><span>◇</span>Scenarios</a><a href="#"><span>▣</span>All Reports</a><a href="#"><span>◒</span>Analytics</a><a href="#"><span>⚙</span>Settings</a><a href="#"><span>ⓘ</span>About</a>
+      </nav>
+      <div class="simulation"><div class="sim-icon">◉</div><div><b>Simulation Mode</b><small>Using synthetic data for demonstration purposes.</small></div></div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div><h1>Batch Processing</h1><p>Paste or load emergency reports and submit them for AI assessment.</p></div><div class="top-actions"><div class="search">⌕ <span>Search reports, locations, or keywords...</span></div><span class="synthetic">SYNTHETIC DATA</span><span class="bell">♧<i></i></span><div class="avatar">◉</div><div class="operator">Operator<small>Control Room⌄</small></div></div></header>
+      <section class="content">
+        <div class="workspace-grid">
+          <div class="left-column">
+            <section class="card paste-card"><div class="card-head"><div><h2>Paste Reports</h2><p>One report per line using the format below.</p></div><span class="source-badge">▣ WhatsApp · Calls · Social</span></div><textarea id="reportInput" spellcheck="false">whatsapp | Musi Bridge, Hyderabad | Water is rising fast, families trapped
+calls | Kukatpally, Hyderabad | Heavy smoke and people are inside a building
+whatsapp | NH 44, Hyderabad | Multiple vehicles involved in an accident
+social | Secunderabad | Tree has fallen across the main road</textarea><div class="format-hint"><span>ⓘ</span> source <b>|</b> location <b>|</b> message <span id="counter">· 4 reports detected</span></div><div class="button-row"><button class="primary" id="addQueue">＋ Add to Queue</button><button class="ghost" id="clearInput">Clear</button></div></section>
+            <section class="card preview-card"><div class="card-head"><div><h2>Parsed Preview</h2><p>Review the reports before adding them to the assessment queue.</p></div><span class="valid-count">✓ 4 valid</span></div><div class="table-wrap"><table><thead><tr><th>ID</th><th>Source</th><th>Location</th><th>Message</th><th>Validation</th></tr></thead><tbody id="previewRows"></tbody></table></div></section>
+          </div>
+          <div class="right-column">
+            <section class="card dataset-card"><div class="card-head"><div><h2>Load Synthetic Dataset</h2><p>Start with realistic Hyderabad-area demo data.</p></div><span class="dataset-icon">◈</span></div><label>Dataset</label><div class="select">Full demo set <span>15 reports⌄</span></div><button class="secondary" id="loadDataset">↻ Load Reports</button></section>
+            <section class="card progress-card"><div class="card-head"><div><h2>Assessment Progress</h2><p>Reports are assessed through the Decisions API.</p></div><strong class="progress-number">9 <small>of 15</small></strong></div><div class="progress-track"><span></span></div><div class="progress-label"><span>Overall progress</span><b>60%</b></div><div class="report-list" id="reportList"></div><button class="primary full" id="processBtn">✦ Process Reports with Decisions API</button><div class="api-note"><span class="status-dot"></span> Model: <b>gpt-6-luna</b><i></i> Decisions API</div></section>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div class="toast" id="toast">Reports added to assessment queue</div>
+  <script src="app.js"></script>
+</body>
+</html>
