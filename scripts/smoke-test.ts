@@ -9,12 +9,14 @@ if (!apiKey) {
 }
 
 const client = new OpenAI({ apiKey, baseURL });
+
+async function main() {
 const result = await client.decisions.create({
   model,
   input: "Unverified public report. WhatsApp report from Musi Bridge, Hyderabad: water is rising fast and families are trapped.",
   questions: [
-    { name: "life_threat", type: "predicate", question: "Is there an immediate threat to human life?" },
-    { name: "urgency", type: "score", question: "How urgent is this report?", levels: [
+    { name: "life_threat", type: "predicate", instructions: "Is there an immediate threat to human life?" },
+    { name: "urgency", type: "score", instructions: "How urgent is this report?", levels: [
       { label: "low", description: "No immediate response required" },
       { label: "medium", description: "Response needed soon" },
       { label: "high", description: "Immediate response needed" },
@@ -24,3 +26,9 @@ const result = await client.decisions.create({
 });
 
 console.log(JSON.stringify(result, null, 2));
+}
+
+main().catch((error) => {
+  console.error(error instanceof Error ? error.message : error);
+  process.exitCode = 1;
+});
